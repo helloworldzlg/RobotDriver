@@ -23,11 +23,19 @@ typedef struct tagRobotDriver_Thread_S {
 } RobotDriver_Thread_S;
 
 typedef enum tagRobot_Driver_ErrId_E {
-    ROBOT_TOUCH_OPEN_DEV_ERR = 0x10,
+    ROBOT_TOUCH_OPEN_DEV_ERR = 0x00,
     ROBOT_TOUCH_GET_JAVAVM_ERR,
     ROBOT_TOUCH_FIND_CLASS_ERR,
     ROBOT_TOUCH_CALLBACK_ERR,
     ROBOT_TOUCH_THREAD_CREATE_ERR,
+
+    ROBOT_VOICE_OPEN_DEV_ERR = 0x20,
+    ROBOT_VOICE_GET_JAVAVM_ERR,
+    ROBOT_VOICE_FIND_CLASS_ERR,
+    ROBOT_VOICE_CALLBACK_ERR,
+    ROBOT_VOICE_THREAD_CREATE_ERR,
+    ROBOT_VOICE_SET_PARAM_ERR,
+    ROBOT_VOICE_SET_GAIN_DIR_ERR,
 }Robot_Driver_ErrId_E;
 
 /*
@@ -72,6 +80,8 @@ JNIEXPORT jint JNICALL Java_com_robot_et_drive_RobotDriver_setLightStatusEnd
 
 extern int RobotTouchInit(JNIEnv *env, jclass cls);
 extern int RobotTouchUnInit(JNIEnv *env, jclass cls);
+extern int RobotVoiceInit(JNIEnv *env, jclass cls);
+extern int RobotVoiceUnInit(JNIEnv *env, jclass cls);
 
 #ifdef __cplusplus
 }

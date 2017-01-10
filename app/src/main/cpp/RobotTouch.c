@@ -10,11 +10,11 @@
 
 static int gRobotTouchDevId;
 static pthread_t gRobotTouchThreadId;
-RobotDriver_Thread_S ThreadPara;
-JavaVM*			g_jvm = 0;
-JNIEnv*			g_jEnv = 0;
-jclass			g_jClass = 0;
-jmethodID       g_jmethodId = 0;
+static RobotDriver_Thread_S ThreadPara;
+static JavaVM*			g_jvm = 0;
+static JNIEnv*			g_jEnv = 0;
+static jclass			g_jClass = 0;
+static jmethodID       g_jmethodId = 0;
 
 void* RobotTouchFunc(void* pThreadPara)
 {

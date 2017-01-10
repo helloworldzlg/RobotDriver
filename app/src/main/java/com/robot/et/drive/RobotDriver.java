@@ -18,6 +18,7 @@ public class RobotDriver {
      * @param awakenAngle 唤醒角度
      */
     public static void callBackAwakenAngle(int awakenAngle) {
+        System.out.println("awakenAngle = "+awakenAngle);
         return;
     }
 

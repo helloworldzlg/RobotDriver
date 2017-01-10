@@ -6,7 +6,8 @@
 #include "com_robot_et_drive_RobotDriver.h"
 
 Robot_Driver_Func_S gRobotDriverFunc[] = {
-        {RobotTouchInit, RobotTouchUnInit, NULL},
+        //{RobotTouchInit, RobotTouchUnInit, NULL},
+        {RobotVoiceInit, RobotVoiceUnInit, NULL},
 };
 
 JNIEXPORT jint JNICALL Java_com_robot_et_drive_RobotDriver_initDrive
