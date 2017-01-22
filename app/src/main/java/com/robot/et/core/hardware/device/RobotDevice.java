@@ -1,12 +1,12 @@
-package com.robot.et.drive;
+package com.robot.et.core.hardware.device;
 
 /**
  * Created by zlg on 17-1-5.
  */
 
-public class RobotDriver {
+public class RobotDevice {
     static {
-        System.loadLibrary("RobotDriver");
+        System.loadLibrary("RobotDevice");
     }
 
 //    public static void setDriveCallBack(DriveCallBack callBack) {
@@ -56,10 +56,10 @@ public class RobotDriver {
     }
 
     // 初始化驱动
-    public static native int initDrive();
+    public static native int initDevice();
 
     // 销毁驱动
-    public static native int unInitDrive();
+    public static native int unInitDevice();
 
     /**
      * 设置设备的状态

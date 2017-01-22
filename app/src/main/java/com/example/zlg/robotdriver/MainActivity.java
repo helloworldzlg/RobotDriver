@@ -4,7 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
-import com.robot.et.drive.RobotDriver;
+import com.robot.et.core.hardware.device.RobotDevice;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -18,7 +18,33 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        RobotDriver.initDrive();
+        int ret;
+
+//        byte[] data = new byte[3];
+//        data[0] = 1;
+//        data[1] = 1;
+//        data[2] = 2;
+//        ret = RobotDevice.initDevice();
+//        System.out.printf("initDevice ret = %d\n", ret);
+//        ret = RobotDevice.setDeviceStatus(2, data);
+//        System.out.printf("setDeviceStatus ret = %d\n", ret);
+//
+//        ret = RobotDevice.setLightStatusStart(2);
+//        System.out.printf("setLightStatusStart ret = %d\n", ret);
+//
+//        ret = RobotDevice.setLightStatusEnd();
+//        System.out.printf("setLightStatusEnd ret = %d\n", ret);
+
+        byte[] data = new byte[5];
+        data[0] = 1;
+        data[1] = 1;
+        data[2] = 2;
+        data[3] = 2;
+        data[4] = 2;
+        ret = RobotDevice.initDevice();
+        System.out.printf("initDevice ret = %d\n", ret);
+        ret = RobotDevice.setDeviceStatus(3, data);
+        System.out.printf("setDeviceStatus ret = %d\n", ret);
 
         // Example of a call to a native method
         TextView tv = (TextView) findViewById(R.id.sample_text);

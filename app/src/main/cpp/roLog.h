@@ -6,7 +6,8 @@
 #define TESTANDROIDLOG_ROLOG_H
 
 #define _LINUX_ANDROID
-//#define ROLOG_TAG
+#define _ROLOG_DEBUG
+#define _ROLOG_INFO
 
 #ifdef _LINUX_ANDROID
 #include <android/log.h>
@@ -66,7 +67,7 @@
 #define ROLOGW(fmt, args...)
 #endif //_ROLOG_WARNING
 
-
+#ifdef _ROLOG_
 #define ROLOGE(fmt, args...) \
 { \
     const char * p___Name = strrchr (__FILE__, '/'); \

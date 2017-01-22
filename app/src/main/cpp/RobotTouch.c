@@ -6,11 +6,11 @@
 #include <stdio.h>
 #include <fcntl.h>
 #include <pthread.h>
-#include "com_robot_et_drive_RobotDriver.h"
+#include "com_robot_et_core_hardware_device_RobotDevice.h"
 
 static int gRobotTouchDevId;
 static pthread_t gRobotTouchThreadId;
-static RobotDriver_Thread_S ThreadPara;
+static RobotDevice_Thread_S ThreadPara;
 static JavaVM*			g_jvm = 0;
 static JNIEnv*			g_jEnv = 0;
 static jclass			g_jClass = 0;
@@ -44,7 +44,7 @@ int RobotTouchInit(JNIEnv *env, jclass cls)
 
     gRobotTouchDevId = open("/dev/robot_touch", O_RDWR);
     if (gRobotTouchDevId < 0) {
-        printf("robot_touch open failed!!! fd = %d\n", gRobotTouchDevId);
+        LOGD("robot_touch open failed!!!");
         return ROBOT_TOUCH_OPEN_DEV_ERR;
     }
 
@@ -58,7 +58,7 @@ int RobotTouchInit(JNIEnv *env, jclass cls)
         return ROBOT_TOUCH_FIND_CLASS_ERR;
     }
 
-    jmethodID method = (*env)->GetStaticMethodID(env, cls, "callBackTouch", "(I)V");
+    jmethodID method = (*env)->GetStaticMethodID(env, cls, "callBack_Touch", "(I)V");
     if (method == NULL) {
         return ROBOT_TOUCH_CALLBACK_ERR;
     }
