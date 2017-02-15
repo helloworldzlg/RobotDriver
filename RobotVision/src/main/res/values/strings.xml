@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">AndroidLauch</string>
+    <string name="string_openlearn">open learn</string>
+    <string name="string_learn">learn</string>
+    <string name="string_learnclose">learn close</string>
+
+    <string name="string_openbody">open body</string>
+    <string name="string_closebody">close body</string>
+    <string name="string_getbodypos">get body pos</string>
+
+    <string name="string_openface">open face</string>
+    <string name="string_closeface">close face</string>
+    <string name="string_getfacepos">get face pos</string>
+
+    <string name="string_getimginfo">get img info</string>
+    <string name="string_getbitmap">get bitmap</string>
+    <string name="string_uninit">un init</string>
+    <string name="string_init">init</string>
+
+
+
+
+</resources>

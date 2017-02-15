@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#FF0000"
+    >
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btn_openlearn"
+                    android:layout_width="0dip"
+                    android:layout_weight="1"
+                    android:layout_height="45dp"
+                    android:text="@string/string_openlearn" />
+
+                <Button
+                    android:id="@+id/btn_learn"
+                    android:layout_width="0dip"
+                    android:layout_weight="1"
+                    android:layout_height="45dp"
+                    android:text="@string/string_learn" />
+
+                <Button
+                    android:id="@+id/btn_learnclose"
+                    android:layout_width="0dip"
+                    android:layout_weight="1"
+                    android:layout_height="45dp"
+                    android:text="@string/string_learnclose" />
+            </LinearLayout>
+
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btn_openbody"
+                    android:layout_width="0dip"
+                    android:layout_weight="1"
+                    android:layout_height="45dp"
+                    android:text="@string/string_openbody" />
+
+                <Button
+                    android:id="@+id/btn_closebody"
+                    android:layout_width="0dip"
+                    android:layout_weight="1"
+                    android:layout_height="45dp"
+                    android:text="@string/string_closebody" />
+
+                <Button
+                    android:id="@+id/btn_getbody"
+                    android:layout_width="0dip"
+                    android:layout_weight="1"
+                    android:layout_height="45dp"
+                    android:text="@string/string_getbodypos" />
+
+            </LinearLayout>
+
+
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btn_openface"
+                    android:layout_width="0dip"
+                    android:layout_weight="1"
+                    android:layout_height="45dp"
+                    android:text="@string/string_openface" />
+
+                <Button
+                    android:id="@+id/btn_closeface"
+                    android:layout_width="0dip"
+                    android:layout_weight="1"
+                    android:layout_height="45dp"
+                    android:text="@string/string_closeface" />
+
+                <Button
+                    android:id="@+id/btn_getface"
+                    android:layout_width="0dip"
+                    android:layout_weight="1"
+                    android:layout_height="45dp"
+                    android:text="@string/string_getfacepos" />
+
+
+
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btn_getimginfo"
+                    android:layout_width="0dip"
+                    android:layout_weight="1"
+                    android:layout_height="45dp"
+                    android:text="@string/string_getimginfo" />
+
+                <Button
+                    android:id="@+id/btn_getbitmap"
+                    android:layout_width="0dip"
+                    android:layout_weight="1"
+                    android:layout_height="45dp"
+                    android:text="@string/string_getbitmap" />
+
+                <Button
+                    android:id="@+id/btn_init"
+                    android:layout_width="0dip"
+                    android:layout_weight="1"
+                    android:layout_height="45dp"
+                    android:text="@string/string_init" />
+
+
+                <Button
+                    android:id="@+id/btn_uninit"
+                    android:layout_width="0dip"
+                    android:layout_weight="1"
+                    android:layout_height="45dp"
+                    android:text="@string/string_uninit" />
+
+
+            </LinearLayout>
+
+
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+            <ImageView
+                android:id="@+id/vbitmap"
+                android:layout_width="300dp"
+                android:layout_height="300dp"
+                android:background="#FFFFFF"
+                 />
+
+        </LinearLayout>
+
+
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

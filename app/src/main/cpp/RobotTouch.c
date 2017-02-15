@@ -18,6 +18,7 @@ static jmethodID       g_jmethodId = 0;
 
 void* RobotTouchFunc(void* pThreadPara)
 {
+	int i;
     int touchId;
     LOGD("RobotTouchFunc");
 
@@ -25,9 +26,12 @@ void* RobotTouchFunc(void* pThreadPara)
 
     while (1) {
         touchId = ioctl(gRobotTouchDevId, 1, 0);
-        if (touchId != 0) {
-            (*g_jEnv)->CallStaticVoidMethod(g_jEnv, g_jClass, g_jmethodId, touchId);
-            usleep(200000);
+        for(i = 0; i < 4; i++) {
+            if (((touchId >> i) & 0x1) != 0) {
+                (*g_jEnv)->CallStaticVoidMethod(g_jEnv, g_jClass, g_jmethodId, i);
+                usleep(200000);
+                break;
+            }
         }
     }
 

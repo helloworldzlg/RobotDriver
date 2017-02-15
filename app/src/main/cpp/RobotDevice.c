@@ -5,7 +5,7 @@
 #include <stdint.h>
 #include "com_robot_et_core_hardware_device_RobotDevice.h"
 
-#define DEVICE_LOCAL_BUFFER_SIZE             (2048)
+#define DEVICE_LOCAL_BUFFER_SIZE             (1024)
 
 /*
  * 此表格中的顺序不要随便调整，调整需要通知APP侧dev Id的变化，否则会出错
@@ -15,7 +15,8 @@ Robot_Device_Func_S gRobotDeviceFunc[] = {
         {ROBOT_TOUCH_DEV, RobotTouchInit, RobotTouchUnInit, NULL},
         {ROBOT_LIGHT_DEV, RobotLightInit, RobotLightUnInit, RobotLightDevSet},
         {ROBOT_SERIALPORT_DEV, RobotSerialPortInit, RobotSerialPortUnInit, RobotSerialPortSet},
-        //{ROBOT_GPIO_DEV, RobotGpioInit, RobotGpioUnInit, RobotGpioSetDev},
+        {ROBOT_GPIO_DEV, RobotGpioInit, RobotGpioUnInit, RobotGpioSetDev},
+        {ROBOT_NOISY_DETECT_DEV, RobotNoisyDetectInit, RobotNoisyDetectUnInit},
 };
 
 JNIEXPORT jint JNICALL Java_com_robot_et_core_hardware_device_RobotDevice_initDevice
@@ -68,6 +69,7 @@ JNIEXPORT jint JNICALL Java_com_robot_et_core_hardware_device_RobotDevice_setDev
         return ROBOT_DEVICE_INPUT_PARAM_ERR;
     }
 
+    memset(buffer, 0, sizeof(buffer));
     dataLen = (*env)->GetArrayLength(env, data);
     (*env)->GetByteArrayRegion(env, data, 0, dataLen, buffer);
 

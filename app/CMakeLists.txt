@@ -9,7 +9,7 @@ cmake_minimum_required(VERSION 3.4.1)
 # You can define multiple libraries, and CMake builds it for you.
 # Gradle automatically packages shared libraries with your APK.
 
-#add_definitions(-D_LINUX_ANDROID -D_ROLOG_DEBUG -D__ROLOG_INFO)
+add_definitions(-D_LINUX_ANDROID -D_ROLOG_INFO)
 
 add_library( # Sets the name of the library.
              native-lib
@@ -36,7 +36,8 @@ add_library( # Sets the name of the library.
              src/main/cpp/RobotVoice.c
              src/main/cpp/RobotGpio.c
              src/main/cpp/RobotLight.c
-             src/main/cpp/RobotSerialPort.c )
+             src/main/cpp/RobotSerialPort.c
+             src/main/cpp/RobotNoisyDetect.c )
 
 # Searches for a specified prebuilt library and stores the path as a
 # variable. Because system libraries are included in the search path by

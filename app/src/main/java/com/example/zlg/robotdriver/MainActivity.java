@@ -20,31 +20,40 @@ public class MainActivity extends AppCompatActivity {
 
         int ret;
 
-//        byte[] data = new byte[3];
+        byte[] data = new byte[10];
+        data[0] = 0x34;
+        data[1] = 0x35;
+        data[2] = 0x36;
+        data[3] = 0x37;
+        data[4] = 0x38;
+        data[5] = 0x39;
+        data[6] = 0x40;
+        data[7] = 0x41;
+        data[8] = 0x42;
+        data[9] = 0x43;
+
+        ret = RobotDevice.initDevice();
+        System.out.printf("initDevice ret = %d\n", ret);
+
+        //ret = RobotDevice.setDeviceStatus(3, data);
+        //System.out.printf("setDeviceStatus ret = %d\n", ret);
+
+        //ret = RobotDevice.setLightStatusStart(2);
+        //System.out.printf("setLightStatusStart ret = %d\n", ret);
+
+        //ret = RobotDevice.setLightStatusEnd();
+        //System.out.printf("setLightStatusEnd ret = %d\n", ret);
+
+//        byte[] data = new byte[5];
 //        data[0] = 1;
 //        data[1] = 1;
 //        data[2] = 2;
+//        data[3] = 2;
+//        data[4] = 2;
 //        ret = RobotDevice.initDevice();
 //        System.out.printf("initDevice ret = %d\n", ret);
-//        ret = RobotDevice.setDeviceStatus(2, data);
+//        ret = RobotDevice.setDeviceStatus(3, data);
 //        System.out.printf("setDeviceStatus ret = %d\n", ret);
-//
-//        ret = RobotDevice.setLightStatusStart(2);
-//        System.out.printf("setLightStatusStart ret = %d\n", ret);
-//
-//        ret = RobotDevice.setLightStatusEnd();
-//        System.out.printf("setLightStatusEnd ret = %d\n", ret);
-
-        byte[] data = new byte[5];
-        data[0] = 1;
-        data[1] = 1;
-        data[2] = 2;
-        data[3] = 2;
-        data[4] = 2;
-        ret = RobotDevice.initDevice();
-        System.out.printf("initDevice ret = %d\n", ret);
-        ret = RobotDevice.setDeviceStatus(3, data);
-        System.out.printf("setDeviceStatus ret = %d\n", ret);
 
         // Example of a call to a native method
         TextView tv = (TextView) findViewById(R.id.sample_text);

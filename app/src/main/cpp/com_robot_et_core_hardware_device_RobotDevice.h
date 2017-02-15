@@ -29,6 +29,7 @@ typedef enum {
     ROBOT_LIGHT_DEV,       /* 2 */
     ROBOT_SERIALPORT_DEV,  /* 3 */
     ROBOT_GPIO_DEV,        /* 4 */
+    ROBOT_NOISY_DETECT_DEV,/* 5 */
     INVALID_ROBOT_DEV_ID,
 };
 
@@ -59,6 +60,7 @@ typedef enum tagRobot_Device_ErrId_E {
     ROBOT_GPIO_WRITE_DEV_ERR,
 
     ROBOT_LIGHT_INPUT_ARRAY_LEN_ERR = 0x70,
+    ROBOT_LIGHT_BREATH_COLOR_ERR,
     ROBOT_LIGHT_SET_PARAM_ERR,
     ROBOT_LIGHT_CTRL_LIGHT_ERR,
     ROBOT_LIGHT_THREAD_CREATE_ERR,
@@ -69,6 +71,12 @@ typedef enum tagRobot_Device_ErrId_E {
     ROBOT_SERIALPORT_READ_ERR,
     ROBOT_SERIALPORT_SET_PARAM_ERR,
 
+    ROBOT_NOISY_DETECT_OPEN_ERR = 0xB0,
+    ROBOT_NOISY_DETECT_GET_JAVAVM_ERR,
+    ROBOT_NOISY_DETECT_FIND_CLASS_ERR,
+    ROBOT_NOISY_DETECT_CALLBACK_ERR,
+    ROBOT_NOISY_DETECT_THREAD_CREATE_ERR,
+    ROBOT_NOISY_DETECT_SET_PARA_ERR,
 }Robot_Device_ErrId_E;
 
 /*
@@ -125,6 +133,11 @@ extern int RobotLightDevSet(JNIEnv *env, jclass cls, jbyte* data, jint dataLen);
 extern int RobotSerialPortInit(JNIEnv *env, jclass cls);
 extern int RobotSerialPortUnInit(JNIEnv *env, jclass cls);
 extern int RobotSerialPortSet(JNIEnv *env, jclass cls, jbyte* data, jint dataLen);
+extern int RobotNoisyDetectInit(JNIEnv *env, jclass cls);
+extern int RobotNoisyDetectUnInit(JNIEnv *env, jclass cls);
+extern int RobotNoisyDetectSet(JNIEnv *env, jclass cls, jbyte* data, jint dataLen);
+
+
 
 #ifdef __cplusplus
 }

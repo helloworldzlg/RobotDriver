@@ -5,21 +5,31 @@
 #include <jni.h>
 #include <fcntl.h>
 #include <stdio.h>
+#include <pthread.h>
 #include "roLog.h"
 #include "com_robot_et_core_hardware_device_RobotDevice.h"
 
 typedef enum {
-    ROBOT_LEAR_LIGHT = 0,
-    ROBOT_REAR_LIGHT,
-    ROBOT_BREATH_LIGHT,
+    ROBOT_LEAR_LIGHT = 0,  /* 左耳朵灯 */
+    ROBOT_REAR_LIGHT,      /* 右耳朵灯 */
+    ROBOT_BREATH_LIGHT,    /* 胸口呼吸灯 */
     ROBOT_LIGHT_MAX_NUM,
 } ROBOT_LIGHT_ID_E;
+
+typedef enum {
+    ROBOT_LIGHT_COLOR_RED = 0,
+    ROBOT_LIGHT_COLOR_GREEN,
+    ROBOT_LIGHT_COLOR_BLUE,
+    ROBOT_LIGHT_COLOR_WHITE,
+    ROBOT_LIGHT_COLOR_INVALID,
+};
 
 #define LIGHT_DEVICE_LED_NUM           (6)
 
 static int gRobotLightId[ROBOT_LIGHT_MAX_NUM];
 static pthread_t gRobotLightThreadId;
 static unsigned int gRobotLightThreadFlag = 0;
+static int gRobotBreathLightColor;
 
 void RobotLightOff(int lightId);
 
@@ -103,22 +113,24 @@ int RobotLightDevSet(JNIEnv *env, jclass cls, jbyte* data, jsize dataLen)
 void *RobotLightFunc(void* pThreadPara)
 {
     int i,j;
-    int ret;
-    int lightColor;
     int lightVal;
     int arraySize;
     char data[] = {0x0, 0x20, 0x40, 0x60, 0x80, 0xA0, 0x80, 0x60, 0x40, 0x20, 0x0};
     arraySize = sizeof(data)/sizeof(data[0]);
 
-    lightColor = *(int*)pThreadPara;
     while (gRobotLightThreadFlag) {
         for (i = 0; i < arraySize; i++) {
             for (j = 0; j < LIGHT_DEVICE_LED_NUM; j++) {
-                lightVal = ((j << 12) | (lightColor << 8) | (data[i]));
+                lightVal = ((j << 12) | (gRobotBreathLightColor << 8) | (data[i]));
 
                 ioctl(gRobotLightId[ROBOT_BREATH_LIGHT], 0, lightVal);
             }
             usleep(150000);
+
+            /* 保证及时退出 */
+            if (!gRobotLightThreadFlag) {
+                break;
+            }
         }
     }
 
@@ -130,8 +142,18 @@ JNIEXPORT jint JNICALL Java_com_robot_et_core_hardware_device_RobotDevice_setLig
 {
     int ret;
 
+    if (lightColor >= ROBOT_LIGHT_COLOR_INVALID) {
+        return ROBOT_LIGHT_BREATH_COLOR_ERR;
+    }
+
+    /* 保证此接口可重入 */
+    if (gRobotLightThreadFlag) {
+        return 0;
+    }
+
+    gRobotBreathLightColor = lightColor;
     gRobotLightThreadFlag = 1;
-    ret = pthread_create(&gRobotLightThreadId, NULL, RobotLightFunc, (void*)&lightColor);
+    ret = pthread_create(&gRobotLightThreadId, NULL, RobotLightFunc, NULL);
     if (ret != 0) {
         return ROBOT_LIGHT_THREAD_CREATE_ERR;
     }
@@ -142,6 +164,11 @@ JNIEXPORT jint JNICALL Java_com_robot_et_core_hardware_device_RobotDevice_setLig
 JNIEXPORT jint JNICALL Java_com_robot_et_core_hardware_device_RobotDevice_setLightStatusEnd
         (JNIEnv *env, jclass cls)
 {
+    /* 保证此接口可重入 */
+    if (!gRobotLightThreadFlag) {
+        return 0;
+    }
+
     gRobotLightThreadFlag = 0;
 
     return 0;

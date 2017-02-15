@@ -6,6 +6,7 @@
 #include <fcntl.h>
 #include "roLog.h"
 #include <termios.h>
+#include <pthread.h>
 #include "com_robot_et_core_hardware_device_RobotDevice.h"
 
 static int gRobotSerialPortId;
@@ -77,28 +78,40 @@ int RobotSerialPortUnInit(JNIEnv *env, jclass cls)
 int RobotSerialPortSet(JNIEnv *env, jclass cls, jbyte* data, jint dataLen)
 {
     int ret;
-    ROBOT_SERIALPORT_FRAME_S mSerialFrame;
+    int i;
+    unsigned char mCheckCode = 0;
+    unsigned char mTxData[64]; /* 注意下面的参数检查 */
+    unsigned char count = 0;
 
-    if ((0 == dataLen) || (dataLen > 5)) {
+    ROLOGI("dataLen = %d", dataLen);
+
+    if ((0 == dataLen) || (dataLen > 61)) {
         return ROBOT_SERIALPORT_SET_PARAM_ERR;
     }
 
-    memset(&mSerialFrame, 0, sizeof(mSerialFrame));
+    memset(&mTxData, 0, sizeof(mTxData));
+
     /* 按照协议格式固定填写 */
-    mSerialFrame.sync_flag     = 0x10;
-    mSerialFrame.data_len      = 0x07;
-    mSerialFrame.protocol_mode = 0xF9;
-    mSerialFrame.request_cmd   = 0x30;
+    mTxData[count++] = 0x10;  /* sync_flag */
+    mTxData[count++] = 0x1 + dataLen;  /* data_len */
+    mTxData[count++] = 0xF9;  /* protocol_mode */
 
     /* 从APP侧获取 */
-    mSerialFrame.joint_id        = data[0];
-    mSerialFrame.rotation_degree = ((data[2] << 8) | data[1]);
-    mSerialFrame.plan_time       = ((data[4] << 8) | data[3]);
+    for (i = 0; i < dataLen; i++) {
+        mTxData[count++] = data[i];
+    }
 
-    ret = write(gRobotSerialPortId, (void*)&mSerialFrame, dataLen);
+    for (i = 0; i < count; i++) {
+        mCheckCode ^= mTxData[i];
+    }
+
+    mTxData[count++] = mCheckCode;
+
+    ret = write(gRobotSerialPortId, (void*)&mTxData, count);
     if (ret < 0) {
         LOGI("serial_port write fail!!!");
         return ROBOT_SERIALPORT_WRITE_ERR;
     }
+    LOGI("serial_port write finished!!!");
     return 0;
 }
